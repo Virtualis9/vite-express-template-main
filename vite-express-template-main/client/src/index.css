@@ -1,0 +1,22 @@
+.title {
+  margin: auto;
+  text-align: center;
+  padding: 10px;
+}
+
+.projectsOrderList {
+  border: 1px solid black;
+  list-style-type: none;
+  padding: 10px;
+  max-width: 50%;
+}
+.AddProjects {
+}
+
+.CurrentProjects {
+  margin-left: 70%;
+  border: 1px solid black;
+}
+
+.projectinput {
+}

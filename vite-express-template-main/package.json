@@ -1,0 +1,18 @@
+{
+  "name": "react-node-sample",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev:client": "yarn --cwd ./client dev",
+    "dev:backend": "nodemon ./server/api.js",
+    "dev": "concurrently -n \"CLIENT,BACKEND\" -c \"red,blue\" -p \"[{name}]\" \"npm run dev:client\" \"npm run dev:backend\""
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
