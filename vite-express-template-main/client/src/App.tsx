@@ -1,31 +1,50 @@
-import { useEffect, useState, useRef } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import "./App.css";
 import InputComponent from "./InputComponant";
 
+interface IProject {
+  id: number, 
+  name: string,
+  state: boolean
+};
+
 function App() {
-  // api fetching with useState
-  const [users, setUsers] = useState<any[] | null>(null);
-  const [projects, setProjects] = useState<any[] | null>(null);
+  //rendering using useState
+  const [projects, setProjects] = useState<IProject[] | null>(null);
+
+  
+  // api fetching with useEffect
   useEffect(() => {
-    fetch('api/users').then(res => res.json()).then(data => setUsers(data));
+    console.log('getting projects');
+    fetch('api/projects').then(res => res.json()).then(data => setProjects(data));
   }, []);
-  useEffect(() => {
-    fetch('api/projects').then(res => res.json()).then(data => setProjects(data))
-  })
 
-  // rendering if not code for api return
-
-  if(!users) {
-    return <></>
-  }
-
-  else if(!projects){
+  if(!projects){
+    
     return <></>
   }
 
 
+  function handleClick(projectName:string){
+    if(projects == null) return;
 
- 
+    console.log("clicked", projectName);
+
+    setProjects((current) => {
+      if(!current) return null;
+      const nextId = current.length + 1;
+      return [...projects,  {id: nextId, name: projectName, state: false}];
+    });
+}
+
+  const test = (value:number) :boolean => {
+    if(value > 10){
+      return true;
+    }else {
+      return false;
+    }
+  }
+
   return (
     <>
       <div>
@@ -37,11 +56,12 @@ function App() {
         </ul> */}
         
         <ul className="projectsOrderList">
-          {projects.map(p => <li key={p.id}>{p.name}<input type="checkbox"></input></li>)}
+          {/* if p.state is true return <></> else return <li> */}
+          {projects.map(p => { if(!p.state){return <li key={p.id}>{p.name} <input checked={p.state} type="checkbox"></input></li>} })}
         </ul>
       </div>
       <div>  
-        <InputComponent/>
+        <InputComponent handleClick={handleClick} />
       </div>
     </>  
   );

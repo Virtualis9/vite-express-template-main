@@ -1,49 +1,37 @@
 // server/index.js
 
 const express = require("express");
-const users = [
-    {
-        "id": 1,
-        "name": "Gerald"
-    },
-    {
-        "id": 2,
-        "name": "Sam"
-    },
-    {
-        "id": 3,
-        "name": "Holly"
-    },
-    {
-        "id": 4,
-        "name": "Twitch"
-    }
-];
 
 const projects = [
     {
         "id": 1,
-        "name": "PMF Calculator"
+        "name": "PMF Calculator",
+        "state": false
     },
     {
         "id": 2,
-        "name": "Electronic risk assessments"
+        "name": "Electronic risk assessments",
+        "state": false
     },
     {
         "id": 3,
-        "name": "Gas Simulation game"
+        "name": "Gas Simulation game",
+        "state": false
     },
     {
         "id": 4,
-        "name": "Electronic stores order sheet"
+        "name": "Electronic stores order sheet",
+        "state": false
     },
     {
         "id": 5,
-        "name": "John dick game"
+        "name": "John dick game",
+        "state": true
     },
     {
         "id": 6,
-        "name": "Printing Website"
+        "name": "Printing Website",
+        "state": false
     },
 
 
@@ -60,9 +48,6 @@ const app = express();
 
 const PORT = 3001;
 
-app.get("/api/users", (req, res) => {
-    return res.json(users);
-});
 
 app.get("/api/projects", (req, res ) => {
     return res.json(projects);

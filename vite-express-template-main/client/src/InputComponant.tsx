@@ -1,37 +1,19 @@
- import { useRef, useState } from "react"
+ import { useRef } from "react"
 
- 
-function InputComponent(){
+interface InputComponetProps {
+    handleClick: (value:string) => void
+}
 
+const InputComponent = (props:InputComponetProps) => {
     //function for onClick and passing values
-    const projectInputRef = useRef()
-    const [projectList, setProjectList] = useState([])
-
-
-    function handleNewProject(event){
-        setProjectList(...projectList,)
-
-    }
-    
-    
-    
-    
-    function handleClick(){
-        let inputElement = projectInputRef.current;
-        console.log(inputElement.value);
-        inputElement.value= "";
-
-    }
-
+    const projectInputRef = useRef<any>();
 
     return(
         <div>
-            <input ref={projectInputRef} onChange={handleNewProject} className="projectInput" type="text" placeholder="Got a new project?"></input>
-            <input onClick={handleClick} type="submit" value="submit"></input>   
+            <input ref={projectInputRef}  className="projectInput"  type="text" placeholder="Got a new project?"></input>
+            <button onClick={() => props.handleClick(projectInputRef.current.value)} >Submit</button>   
         </div>
-    )
-    
-        
+    )       
 }
 
 export default InputComponent
