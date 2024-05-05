@@ -88,7 +88,7 @@ function App() {
                 👆
               </button>
               <button className="move-button" onClick={() => moveTaskDown(id)}>
-                👎
+                👇
               </button>
             </li>
           )}
