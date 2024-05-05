@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react"
 import "./App.css";
 
-
 interface IProject {
   id: number, 
   name: string,
@@ -24,7 +23,6 @@ function App() {
     return <></>
   }
   
-  
   const handleInputChange = (event:any) =>{
     setNewProjects(event.target.value);
   }
@@ -41,23 +39,21 @@ function App() {
     setNewProjects("")
   }
 
-  function deleteTask(index:any){
+ const deleteTask = (index:any)=>{
     const updatedProjects = projects.filter((_, i) => i !== index);
     setProjects(updatedProjects);
   }
 
-  function moveTaskUp(index:any){
+  const moveTaskUp = (index:any)=>{
     if(index > 0){
       const updatedProjects = [...projects];
       [updatedProjects[index], updatedProjects[index -1]] =
       [updatedProjects[index -1], updatedProjects[index]]
       setProjects(updatedProjects)
-
     }
-
   }
 
-  function moveTaskDown(index){
+  const moveTaskDown = (index:any)=>{
     if(index >= 0){
       const updatedProjects = [...projects];
       [updatedProjects[index], updatedProjects[index +1]] =
@@ -67,8 +63,6 @@ function App() {
     
   }
   
- 
-
   return (
     <>
       <div className="project-list">
