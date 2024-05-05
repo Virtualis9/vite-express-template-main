@@ -10,7 +10,7 @@ const InputComponent = (props:InputComponetProps) => {
 
     return(
         <div>
-            <input ref={projectInputRef}  className="projectInput"  type="text" placeholder="Got a new project?"></input>
+            <input ref={projectInputRef}  className="projectInput"  type="text" placeholder="Got a new project?" ></input>
             <button onClick={() => props.handleClick(projectInputRef.current.value)} >Submit</button>   
         </div>
     )       
