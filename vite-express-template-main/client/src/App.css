@@ -14,13 +14,13 @@ h1 {
 
 button {
   font-size: 1.7rem;
-  font-weight: bold; /* Fixed typo: 'front-weight' to 'font-weight' */
+  font-weight: bold;
   padding: 10px 20px;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.5s ease; /* Fixed syntax: '0.5 ease' to '0.5s ease' */
+  transition: background-color 0.5s ease;
 }
 
 .add-button {
@@ -30,7 +30,7 @@ button {
 }
 
 .add-button:hover {
-  background-color: hsl(125, 47%, 44%); /* Fixed syntax */
+  background-color: hsl(125, 47%, 44%);
 }
 
 .delete-button {
@@ -38,7 +38,7 @@ button {
 }
 
 .delete-button:hover {
-  background-color: hsl(10, 47%, 40%); /* Fixed syntax */
+  background-color: hsl(10, 47%, 40%);
 }
 
 .move-button {
@@ -46,7 +46,7 @@ button {
 }
 
 .move-button:hover {
-  background-color: hsl(207, 90%, 54%); /* Fixed syntax */
+  background-color: hsl(207, 90%, 54%);
 }
 
 input[type="text"] {
