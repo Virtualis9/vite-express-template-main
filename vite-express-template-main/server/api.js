@@ -2,11 +2,17 @@
 
 const express = require("express");
 
+const progress = [{
+    "id": 1
+    
+}]
+
 const projects = [
     {
         "id": 1,
         "name": "PMF Calculator",
-        "state": false
+        "state": false,
+        "progress": []
     },
     {
         "id": 2,
@@ -33,6 +39,10 @@ const projects = [
         "name": "Printing Website",
         "state": false
     },
+    {
+        "id": 7,
+        "name": "HAVS QR code tracker "
+    }
 
 
 

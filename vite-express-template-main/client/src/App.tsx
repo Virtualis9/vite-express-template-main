@@ -12,6 +12,7 @@ function App() {
   const projectInputRef = useRef<any>(null);
   const [projects, setProjects] = useState<IProject[] | null>(null);
   const [newProjects, setNewProjects] = useState("")
+  const [progress, setNewProgress] =  useState(false)
   
   // api fetching with useEffect
   useEffect(() => {
@@ -62,7 +63,13 @@ function App() {
     }
     
   }
-  
+
+  const progressList = () => {
+    setNewProgress(!progress)
+
+  }
+
+
   return (
     <>
       <div className="project-list">
@@ -79,10 +86,11 @@ function App() {
         </button>
         <ol>
           {projects.map((projects, id) => 
-            <li key={id}>
-              <span className="text">{projects.name}</span>
+            <li key={id} >
+              <span onClick={() => progressList()} className="text">{projects.name}</span>
+             
               <button className="delete-button" onClick={() => deleteTask(id)}>
-                delete
+                Delete
               </button>
               <button className="move-button" onClick={() => moveTaskUp(id)}>
                 👆
@@ -91,8 +99,20 @@ function App() {
                 👇
               </button>
             </li>
+             
           )}
         </ol>
+        <span>{progress ? 
+              <div className="progress">
+                <li>
+                  <div className="progress" id="progress">
+                  <label className="progress">What needs to be done?</label>
+                  <input type="text" placeholder="type in your to-do project list"></input>
+                  <button className="progress-button">Submit To-Do List</button>
+                  <span id="" className="progress" >{progress}</span>
+                  </div>
+                </li>
+              </div>: null}</span>
       </div>
     </>  
   );
