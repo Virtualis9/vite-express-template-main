@@ -144,3 +144,12 @@ li:hover {
 li.progress:hover {
   background-color: hsl(0, 0%, 80%);
 }
+
+.toDoList {
+  background-color: white;
+  padding: 8px;
+  font-size: 1.4rem;
+  margin-left: 10px;
+  color: black;
+  display: felx;
+}

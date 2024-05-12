@@ -7,23 +7,26 @@ interface IProject {
   state: boolean,
 };
 
-interface IProgress {
-  id: number, 
-  name: string,
-  state: boolean,
-};
 
 function App() {
   //rendering using useState
-  const toDoListInputRef = useRef<any>(null);
+  const tasksInputRef = useRef<any>(null);
   const projectInputRef = useRef<any>(null);
   const [projects, setProjects] = useState<IProject[] | null>(null);
-  const [newProjects, setNewProjects] = useState("")
-  const [progressList, setProgressList] = useState<any>(null);
-  const [toDoList, setToDoList] = useState<any>("");
+  const [newProjects, setNewProjects] = useState<any>("")
+  const [progressListVisible, setProgressListVisible] = useState<boolean>(false);
+  const [tasks, setTasks] = useState('');
+  const [activities, setActivities] = useState([])
+
+  let nextId = 0;
   
   
-  // api fetching with useEffect
+  // // api fetching with useEffect
+  // useEffect(() => {
+  //   console.log('getting tasks');
+  //   fetch('api/tasks').then(res => res.json()).then(data => setTasks(data));
+  // }, []);
+  
   useEffect(() => {
     console.log('getting projects');
     fetch('api/projects').then(res => res.json()).then(data => setProjects(data));
@@ -38,16 +41,15 @@ function App() {
     setNewProjects(event.target.value);
   }
 
-  const handleProgressChange = (event:any) =>{
-    setToDoList(event.target.value)
+  const handleTaskChange = (event: React.ChangeEvent<HTMLInputElement>) =>{
+    setTasks(event.target.value)
   }
 
-  const addToDoList = () => {
-    console.log(toDoList)
-    if(!toDoListInputRef.current.value || toDoList.trim() === "" ) return;
-    setToDoList(prevToDoList => [...prevToDoList, toDoList])
-    setToDoList("")
-  }
+  const addTasks = () => {
+   setActivities([...activities, {id: nextId++, tasks: tasks}]);
+   
+  };
+  
  
  
   const addProject = ()=>{
@@ -87,8 +89,8 @@ function App() {
   }
 
   const progressDropList = () => {
-    setProgressList(!progressList)
-    console.log(progressList)
+    setProgressListVisible(!progressListVisible)
+    console.log(progressListVisible)
 
   }
 
@@ -120,18 +122,30 @@ function App() {
               <button className="move-button" onClick={() => moveTaskDown(id)}>
                 👇
               </button>
-              <button className="progress-button" onClick={() => progressDropList()}>Check Progress 💹</button>
+              <button className="progress-button" onClick={() => progressDropList()}>To Do List 💹</button>
             </li>
              
           )}
         </ol>
         <ol>
-  {progressList ? (
+  {progressListVisible ? (
     <>
-      <label className="project-list">What needs to be done?</label>
-      <input ref={toDoListInputRef} onChange={handleProgressChange} type="text" placeholder="type in your to-do project list" /><br />
-      <button className="add-button" onClick={() => addToDoList()}>Submit To-Do List</button><br />
-      <span className="text">{toDoList}</span>
+      <div className="toDoList">
+        <span className="">Tasks</span>
+        <input 
+         value={tasks}
+         onChange={e => setTasks(e.target.value)} 
+         type="text" 
+         placeholder="Add Tasks Here" />
+        <button className="add-button" onClick={() => addTasks()}>Add</button>
+        <ul>
+            {activities.map(activity => (
+              <li key={activity.id}><input type="checkbox"/>{activity.tasks}</li>
+            ))}
+        </ul>
+        
+      </div>
+      
     </>
   ) : null}
 </ol>

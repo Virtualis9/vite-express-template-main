@@ -2,8 +2,10 @@
 
 const express = require("express");
 
-const progress = [{
-    "id": 1
+const tasks = [
+{
+    "id": 1,
+    
     
 }]
 
@@ -12,7 +14,7 @@ const projects = [
         "id": 1,
         "name": "PMF Calculator",
         "state": false,
-        "progress": []
+        
     },
     {
         "id": 2,
@@ -41,7 +43,8 @@ const projects = [
     },
     {
         "id": 7,
-        "name": "HAVS QR code tracker "
+        "name": "HAVS QR code tracker ",
+        "state": false
     }
 
 
@@ -58,6 +61,9 @@ const app = express();
 
 const PORT = 3001;
 
+app.get("/api/tasks", (req, res) => {
+    return res.json(tasks);
+});
 
 app.get("/api/projects", (req, res ) => {
     return res.json(projects);
