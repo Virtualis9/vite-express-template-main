@@ -7,12 +7,21 @@ interface IProject {
   state: boolean,
 };
 
+interface IProgress {
+  id: number, 
+  name: string,
+  state: boolean,
+};
+
 function App() {
   //rendering using useState
+  const toDoListInputRef = useRef<any>(null);
   const projectInputRef = useRef<any>(null);
   const [projects, setProjects] = useState<IProject[] | null>(null);
   const [newProjects, setNewProjects] = useState("")
-  const [progress, setNewProgress] =  useState(false)
+  const [progressList, setProgressList] = useState<any>(null);
+  const [toDoList, setToDoList] = useState<any>("");
+  
   
   // api fetching with useEffect
   useEffect(() => {
@@ -23,10 +32,23 @@ function App() {
   if(!projects){
     return <></>
   }
-  
+
+ 
   const handleInputChange = (event:any) =>{
     setNewProjects(event.target.value);
   }
+
+  const handleProgressChange = (event:any) =>{
+    setToDoList(event.target.value)
+  }
+
+  const addToDoList = () => {
+    console.log(toDoList)
+    if(!toDoListInputRef.current.value || toDoList.trim() === "" ) return;
+    setToDoList(prevToDoList => [...prevToDoList, toDoList])
+    setToDoList("")
+  }
+ 
  
   const addProject = ()=>{
     if (!projectInputRef.current.value || newProjects.trim() === "") return;
@@ -64,12 +86,13 @@ function App() {
     
   }
 
-  const progressList = () => {
-    setNewProgress(!progress)
+  const progressDropList = () => {
+    setProgressList(!progressList)
+    console.log(progressList)
 
   }
 
-
+  
   return (
     <>
       <div className="project-list">
@@ -87,8 +110,7 @@ function App() {
         <ol>
           {projects.map((projects, id) => 
             <li key={id} >
-              <span onClick={() => progressList()} className="text">{projects.name}</span>
-             
+              <span className="text">{projects.name}</span>
               <button className="delete-button" onClick={() => deleteTask(id)}>
                 Delete
               </button>
@@ -98,21 +120,23 @@ function App() {
               <button className="move-button" onClick={() => moveTaskDown(id)}>
                 👇
               </button>
+              <button className="progress-button" onClick={() => progressDropList()}>Check Progress 💹</button>
             </li>
              
           )}
         </ol>
-        <span>{progress ? 
-              <div className="progress">
-                <li>
-                  <div className="progress" id="progress">
-                  <label className="progress">What needs to be done?</label>
-                  <input type="text" placeholder="type in your to-do project list"></input>
-                  <button className="progress-button">Submit To-Do List</button>
-                  <span id="" className="progress" >{progress}</span>
-                  </div>
-                </li>
-              </div>: null}</span>
+        <ol>
+  {progressList ? (
+    <>
+      <label className="project-list">What needs to be done?</label>
+      <input ref={toDoListInputRef} onChange={handleProgressChange} type="text" placeholder="type in your to-do project list" /><br />
+      <button className="add-button" onClick={() => addToDoList()}>Submit To-Do List</button><br />
+      <span className="text">{toDoList}</span>
+    </>
+  ) : null}
+</ol>
+
+        
       </div>
     </>  
   );
